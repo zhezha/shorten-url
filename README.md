@@ -1,5 +1,5 @@
 # Shorten_URL
-Shorten Long URL
+Shorten URL
 
 A web application that provides shortened URL, when given a long URL. Visiting shortened URL is redirected to the original long URL.
 
