@@ -9,12 +9,12 @@ import com.mysql.jdbc.Statement;
 
 public class URLDBImpl implements URLDBInterface {
 
-	// Get url for a given hash.
-	// If the url is not in database, return null.
+	// Get URL for a given hash.
+	// If the URL is not in database, return null.
 	public URL getURLByHash(String hash) {
 		
 		URL url = new URL();
-		Connection conn = DBConnection.getConnection();
+		Connection conn = SingletonConnection.getConnection();
 		try {
 			String sql = "select * from url where hash_value = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -37,12 +37,12 @@ public class URLDBImpl implements URLDBInterface {
 	}
 
 
-	// Get url for a given id.
-	// If the url is not in database, return null.
+	// Get URL for a given id.
+	// If the URL is not in database, return null.
 	public URL getURLByID(long id) {
 		
 		URL url = new URL();
-		Connection conn = DBConnection.getConnection();
+		Connection conn = SingletonConnection.getConnection();
 		try {
 			String sql = "select * from url where id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -65,13 +65,12 @@ public class URLDBImpl implements URLDBInterface {
 	}
 
 
-	// Add a url to database and
-	// return id of the added item
-	// If fail to add url, return -1.
+	// Add a URL to database and return id of the added item.
+	// If fail to add URL, return -1.
 	public long addURL(URL url) {
 		
 		long id = -1;
-		Connection conn = DBConnection.getConnection();
+		Connection conn = SingletonConnection.getConnection();
 		String sql = "insert into url (hash_value, long_url) values (?, ?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

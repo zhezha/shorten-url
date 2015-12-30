@@ -7,8 +7,9 @@ import java.util.HashMap;
 
 public class URLConversion {
 
-	// Digit to charactor: '0':0, '1':1, ..., '9':9, 'A':10, ..., 'Z':35, 'a':36, ..., 'z':61.
+	// Digit to character: '0':0, '1':1, ..., '9':9, 'A':10, ..., 'Z':35, 'a':36, ..., 'z':61.
 	private static char[] array62Base = new char[62];
+	// Character to Digit.
 	private static HashMap<Character, Integer> map62Base = new HashMap<Character, Integer>();
 
 	static {

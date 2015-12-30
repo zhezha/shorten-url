@@ -14,7 +14,6 @@ import com.shortenurl.model.URL;
 import com.shortenurl.model.URLConversion;
 import com.shortenurl.model.URLDBImpl;
 
-// URL pattern match ???
 @WebServlet("/Redirect/*")
 public class RedirectShortURLServlet extends HttpServlet {
 

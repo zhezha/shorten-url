@@ -60,7 +60,7 @@ public class ShortenURLServlet extends HttpServlet {
 	}
 	
 	
-	// Check if a url is valid.
+	// Check if a URL is valid.
 	private boolean isValid(String url) {
 		
 		if (url == null) {

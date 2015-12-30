@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DBConnection {
+public class SingletonConnection {
 	
 	private static Connection connection;
 	
@@ -15,7 +15,7 @@ public class DBConnection {
 		try {
 			Properties props = new Properties();
 			// Get context of the class, i.e. the path of "/src".
-			ClassLoader classLoader = DBConnection.class.getClassLoader();
+			ClassLoader classLoader = SingletonConnection.class.getClassLoader();
 			InputStream stream = classLoader.getResourceAsStream("/resources/dbconnection.properties");
 			props.load(stream);
 			
