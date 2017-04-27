@@ -15,6 +15,11 @@ public class ShortenUrlService {
     private UrlRecordRepository repository;
 
     public String toShortUrl(String longUrl) {
+        if (!longUrl.contains("http")
+                && !longUrl.contains("https")) {
+            longUrl = "http://" + longUrl;
+        }
+        // Get id from database insertion.
         long id = repository.save(new UrlRecord(longUrl)).getId();
         return longToBase64String(id);
     }

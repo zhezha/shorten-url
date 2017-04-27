@@ -25,6 +25,7 @@ public class WebController implements ApplicationListener<EmbeddedServletContain
         log.info("URL to shorten is {}", url);
         String shortUrl = shortenUrlService.toShortUrl(url);
         log.info("Shortened URL is {}", shortUrl);
+        // Get the hostname of local machine
         String host = InetAddress.getLoopbackAddress().getHostAddress();
         return String.format(
                 "Shorten URL: %s:%s/%s",
