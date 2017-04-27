@@ -5,4 +5,4 @@ A web application that provides shortened URL, when given a long URL. Visiting s
 
 Read [URL Shortening](https://en.wikipedia.org/wiki/URL_shortening) for more details.
 
-The project is implemented in Eclipse IDE and using MySQL database.
+The project is implemented using Spring boot and embedded database.
