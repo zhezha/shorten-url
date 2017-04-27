@@ -5,4 +5,4 @@ A web application that provides shortened URL, when given a long URL. Visiting s
 
 Read [URL Shortening](https://en.wikipedia.org/wiki/URL_shortening) for more details.
 
-The project is implemented using Spring boot and embedded database.
+The project is implemented using Spring Boot and embedded database.
