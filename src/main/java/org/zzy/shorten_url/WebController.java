@@ -22,9 +22,9 @@ public class WebController implements ApplicationListener<EmbeddedServletContain
 
     @RequestMapping(value = "/generateShortUrl", method = RequestMethod.POST)
     public @ResponseBody String generateShortUrl(@RequestParam("longURL") String url) {
-        log.info("URL to shorten is {}", url);
+        log.debug("Long URL: {}", url);
         String shortUrl = shortenUrlService.toShortUrl(url);
-        log.info("Shortened URL is {}", shortUrl);
+        log.debug("Short URL: {}", shortUrl);
         // Get the hostname of local machine
         String host = InetAddress.getLoopbackAddress().getHostAddress();
         return String.format(
@@ -33,8 +33,12 @@ public class WebController implements ApplicationListener<EmbeddedServletContain
         );
     }
 
-    // Redirect any url in the form of "host:port/{shortUrl}" to original URL
-    // except for "host:port/" (welcome page) and "host:port/generateShortUrl"
+    /**
+     * Redirect any url in the form of "host:port/{shortUrl}" to the original long URL
+     * except for "host:port/"(the welcome page) and "host:port/generateShortUrl".
+     * @param shortUrl
+     * @return
+     */
     @RequestMapping(value = "/{shortUrl:(?!generateShortUrl).+}", method = RequestMethod.GET)
     public String redeirectUrl(@PathVariable String shortUrl) {
         String longUrl = shortenUrlService.toLongUrl(shortUrl);
