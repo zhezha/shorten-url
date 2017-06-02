@@ -1,15 +1,14 @@
 package org.zzy.shorten_url.service;
 
-import com.google.common.primitives.Longs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.zzy.shorten_url.base64converter.Base64Converter;
 import org.zzy.shorten_url.domain.UrlRecord;
 import org.zzy.shorten_url.domain.UrlRecordRepository;
 
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -27,27 +26,17 @@ public class ShortenUrlService {
         }
         // Get id from database insertion.
         long id = repository.save(new UrlRecord(longUrl)).getId();
-        return longToBase64String(id);
+        String shortUrl = Base64Converter.longToBase64String(id);
+        log.info("long url: {} to short url: {}", longUrl, shortUrl);
+        return shortUrl;
     }
 
     private boolean hasScheme(String url) {
         return urlSchemes.stream().anyMatch(it -> url.toLowerCase().startsWith(it));
     }
 
-    public String longToBase64String(long in) {
-        byte[] bytes = Longs.toByteArray(in);
-        byte[] encodedBytes = Base64.getEncoder().encode(bytes);
-        return new String(encodedBytes);
-    }
-
     public String toLongUrl(String shortUrl) {
-        long id = base64StringToLong(shortUrl);
+        long id = Base64Converter.base64StringToLong(shortUrl);
         return repository.findOne(id).getLongUrl();
-    }
-
-    public long base64StringToLong(String in) {
-        byte[] encodedBytes = in.getBytes();
-        byte[] bytes = Base64.getDecoder().decode(encodedBytes);
-        return Longs.fromByteArray(bytes);
     }
 }
