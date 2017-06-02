@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class ShortenUrlService {
     private static final Logger log = LoggerFactory.getLogger(ShortenUrlService.class);
-    private List<String> urlSchemes = Arrays.asList("http", "ftp", "mailto", "file", "data", "irc");
+    private List<String> urlSchemes = Arrays.asList("http:", "ftp:", "mailto:", "file:", "data:", "irc:");
     private final static String DEFAULT_SCHEME = "http://";
 
     @Autowired
@@ -31,7 +31,7 @@ public class ShortenUrlService {
     }
 
     private boolean hasScheme(String url) {
-        return urlSchemes.stream().anyMatch(it -> url.toLowerCase().contains(it));
+        return urlSchemes.stream().anyMatch(it -> url.toLowerCase().startsWith(it));
     }
 
     public String longToBase64String(long in) {
