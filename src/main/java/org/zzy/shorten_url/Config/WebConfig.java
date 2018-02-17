@@ -1,4 +1,4 @@
-package org.zzy.shorten_url.Config;
+package org.zzy.shorten_url.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
