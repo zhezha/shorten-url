@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zzy.shorten_url.base64converter.Base64Converter;
+import org.zzy.shorten_url.config.AppConfig;
 import org.zzy.shorten_url.domain.UrlRecord;
 import org.zzy.shorten_url.domain.UrlRecordRepository;
 
@@ -14,8 +15,14 @@ import java.util.List;
 @Service
 public class ShortenUrlService {
     private static final Logger log = LoggerFactory.getLogger(ShortenUrlService.class);
-    private List<String> urlSchemes = Arrays.asList("http:", "ftp:", "mailto:", "file:", "data:", "irc:");
-    private final static String DEFAULT_SCHEME = "http://";
+    private List<String> urlSchemes = Arrays.asList("http:", "https", "ftp:", "mailto:", "file:", "data:", "irc:");
+    private final static String DEFAULT_SCHEME = "https://";
+    private AppConfig appConfig;
+
+    public ShortenUrlService(AppConfig appConfig) {
+        this.appConfig = appConfig;
+    }
+
 
     @Autowired
     private UrlRecordRepository repository;
@@ -27,8 +34,12 @@ public class ShortenUrlService {
         // Get id from database insertion.
         long id = repository.save(new UrlRecord(longUrl)).getId();
         String shortUrl = Base64Converter.longToBase64String(id);
-        log.info("long url: {} to short url: {}", longUrl, shortUrl);
-        return shortUrl;
+        log.debug("long url: {} to short url: {}", longUrl, shortUrl);
+        return String.format(
+                "<b>Shorten URL:</b>" +
+                        "<br><br> %s:%s/%s",
+                appConfig.getHostName(), appConfig.getPort(), shortUrl
+        );
     }
 
     private boolean hasScheme(String url) {
